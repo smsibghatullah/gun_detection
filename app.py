@@ -63,61 +63,73 @@ def background_process_test():
     gun_cascade = cv2.CascadeClassifier('cascade.xml') 
     # camera = cv2.VideoCapture(0)
     #path = main_win.sourceFile
-    path = '/home/developer/sibghat/flask_Demo/FLIR_THERMAL IR ELLIOT.mp4'
+    path = '/home/developer/sibghat/flask_Demo/code/FLIR_THERMAL IR ELLIOT.mp4'
     camera = cv2.VideoCapture(path) #grey video
     # camera = cv2.VideoCapture('flir_ELLIOT RAINBOW(1).mp4') # rainbow video
     # camera = cv2.VideoCapture('FLIR THERMAL 4K.mp4') # normal video
+    out = cv2.VideoWriter('/home/developer/sibghat/flask_Demo/code/output.mp4', -1, 20.0, (640, 480))
+    width = int(camera.get(cv2.CAP_PROP_FRAME_WIDTH) + 0.5)
+    height = int(camera.get(cv2.CAP_PROP_FRAME_HEIGHT) + 0.5)
+    size = (width, height)
+    fourcc = cv2.VideoWriter_fourcc(*'MJPG')
+    out = cv2.VideoWriter('your_video.avi', fourcc, 20.0, size)
 
     firstFrame = None
     gun_exist = False
+    try:
+        while True:
 
-    while True: 
-        
-        ret, frame = camera.read() 
+            ret, frame = camera.read()
 
-        frame = imutils.resize(frame, width = 500) 
-        gray = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY) 
-        
-        gun = gun_cascade.detectMultiScale(gray, 
-                                        1.3, 5, 
-                                        minSize = (100, 100)) 
-        
-        if len(gun) > 0: 
-            gun_exist = True
-            
-        for (x, y, w, h) in gun: 
-            
-            frame = cv2.rectangle(frame, 
-                                (x, y), 
-                                (x + w, y + h), 
-                                (255, 0, 0), 2) 
-            roi_gray = gray[y:y + h, x:x + w] 
-            roi_color = frame[y:y + h, x:x + w]  
+            frame = imutils.resize(frame, width = 500)
+            gray = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
 
-        if firstFrame is None: 
-            firstFrame = gray 
-            continue
+            gun = gun_cascade.detectMultiScale(gray,
+                                            1.3, 5,
+                                            minSize = (100, 100))
 
-        # print(datetime.date(2019)) 
-        # draw the text and timestamp on the frame 
-        cv2.putText(frame, datetime.datetime.now().strftime("% A % d % B % Y % I:% M:% S % p"), 
-                    (10, frame.shape[0] - 10), 
-                    cv2.FONT_HERSHEY_SIMPLEX, 
-                    0.35, (0, 0, 255), 1) 
+            if len(gun) > 0:
+                gun_exist = True
 
-        #cv2. ("Security Feed", frame)
-        key = cv2.waitKey(1) & 0xFF
+            for (x, y, w, h) in gun:
 
-        if key == ord('q'): 
-            break
+                frame = cv2.rectangle(frame,
+                                    (x, y),
+                                    (x + w, y + h),
+                                    (255, 0, 0), 2)
+                roi_gray = gray[y:y + h, x:x + w]
+                roi_color = frame[y:y + h, x:x + w]
 
-        if gun_exist: 
-            print("guns detected") 
-        else: 
-            print("guns NOT detected") 
+            if firstFrame is None:
+                firstFrame = gray
+                continue
 
-    camera.release() 
-    cv2.destroyAllWindows() 
+            # print(datetime.date(2019))
+            # draw the text and timestamp on the frame
+            cv2.putText(frame, datetime.datetime.now().strftime("% A % d % B % Y % I:% M:% S % p"),
+                        (10, frame.shape[0] - 10),
+                        cv2.FONT_HERSHEY_SIMPLEX,
+                        0.35, (0, 0, 255), 1)
+
+            cv2.imshow("Security Feed", frame)
+            out.write(cv2.resize(frame, size ))
+            key = cv2.waitKey(1) & 0xFF
+
+            if key == ord('q'):
+                break
+
+            if gun_exist:
+                print("guns detected")
+            else:
+                print("guns NOT detected")
+    except:
+        pass
+
+    out.release()
+    camera.release()
+
+    cv2.destroyAllWindows()
+    return "True"
 
 if __name__=="__main__":
     app.run(debug=True)
