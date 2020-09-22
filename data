@@ -1,0 +1,15 @@
+182.180.72.24
+saeed
+qwerty_123
+
+
+ssh saeed@182.180.72.24
+nohup   --version
+
+
+python3.5 -m venv myenv
+
+
+
+ssh -L 59000:localhost:5901 -C -N -l saeed 182.180.72.24
+SAEEDsystem
