@@ -15,8 +15,11 @@
 
 <div class='container'>
 <h3>Test</h3>
-    <form>
-        <a href=# id=test><button class='btn btn-default'>Test</button></a>
+    <form action="/background_process_test" method = "POST"
+         enctype = "multipart/form-data">
+
+            <input type="file" name="file" class='btn btn-default'>Test</input>
+        <input type="submit">
     </form>
 
 </div>

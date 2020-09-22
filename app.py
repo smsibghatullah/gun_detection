@@ -1,6 +1,8 @@
-from flask import Flask, render_template
+from flask import Flask, render_template, request
 import tkinter
 from tkinter import filedialog
+# from werkzeug import secure_filename
+
 import os
 import numpy as np 
 import cv2 
@@ -24,9 +26,15 @@ def json():
     return render_template('json.html')
 
 #background process happening without any refreshing
-@app.route('/background_process_test')
+@app.route('/background_process_test',  methods = ['GET', 'POST'])
 def background_process_test():
     print ("Hello")
+
+    if request.method == 'POST':
+        f = request.files['file']
+        x=1
+        f.save('uploaded_file.mp4')
+
     # root = tkinter.Tk()
     # root.withdraw() #use to hide tkinter window
     
@@ -63,11 +71,11 @@ def background_process_test():
     gun_cascade = cv2.CascadeClassifier('cascade.xml') 
     # camera = cv2.VideoCapture(0)
     #path = main_win.sourceFile
-    path = '/home/developer/sibghat/flask_Demo/code/FLIR_THERMAL IR ELLIOT.mp4'
+    path = 'uploaded_file.mp4'
     camera = cv2.VideoCapture(path) #grey video
     # camera = cv2.VideoCapture('flir_ELLIOT RAINBOW(1).mp4') # rainbow video
     # camera = cv2.VideoCapture('FLIR THERMAL 4K.mp4') # normal video
-    out = cv2.VideoWriter('/home/developer/sibghat/flask_Demo/code/output.mp4', -1, 20.0, (640, 480))
+    out = cv2.VideoWriter('uploaded_file_detected.mp4', -1, 20.0, (640, 480))
     width = int(camera.get(cv2.CAP_PROP_FRAME_WIDTH) + 0.5)
     height = int(camera.get(cv2.CAP_PROP_FRAME_HEIGHT) + 0.5)
     size = (width, height)
