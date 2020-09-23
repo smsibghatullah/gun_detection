@@ -1,4 +1,4 @@
-from flask import Flask, render_template, request
+from flask import Flask, render_template, request, redirect, url_for
 import tkinter
 from tkinter import filedialog
 # from werkzeug import secure_filename
@@ -9,7 +9,8 @@ import cv2
 import imutils 
 import datetime 
 
-app=Flask(__name__)
+# app=Flask(__name__)
+app = Flask(__name__, static_folder='static')
 
 @app.route('/')
 def home():
@@ -20,6 +21,13 @@ def home():
 def about():
     return render_template("about.html")
 
+@app.route('/player')
+def player():
+    video = request.args.get("video")
+
+    return render_template('player.html',video=video)
+
+
 
 @app.route('/json')
 def json():
@@ -29,45 +37,12 @@ def json():
 @app.route('/background_process_test',  methods = ['GET', 'POST'])
 def background_process_test():
     print ("Hello")
-
+    # return redirect(url_for('player', video='your_video123.avi'))
     if request.method == 'POST':
         f = request.files['file']
         x=1
         f.save('uploaded_file.mp4')
 
-    # root = tkinter.Tk()
-    # root.withdraw() #use to hide tkinter window
-    
-
-    # def search_for_file_path ():
-    #     currdir = os.getcwd()
-    #     tempdir = filedialog.askdirectory(parent=root, initialdir=currdir, title='Please select a directory')
-    #     if len(tempdir) > 0:
-    #         print ("You chose: %s" % tempdir)
-    #     return tempdir
-
-    # file_path_variable = search_for_file_path()
-    # print ("\nfile_path_variable = ", file_path_variable)
-    # main_win = tkinter.Tk()
-    # main_win.withdraw()
-    #
-    # main_win.overrideredirect(True)
-    # main_win.geometry('0x0+0+0')
-    #
-    # main_win.deiconify()
-    # main_win.lift()
-    # main_win.focus_force()
-    #
-    # #open file selector
-    # main_win.sourceFile = filedialog.askopenfilename(parent=main_win, initialdir= "/",
-    # title='Please select a directory')
-    #
-    # #close window after selection
-    # main_win.destroy()
-    #
-    # #print path
-    # print('testing file')
-    # print(main_win.sourceFile)
     gun_cascade = cv2.CascadeClassifier('cascade.xml') 
     # camera = cv2.VideoCapture(0)
     #path = main_win.sourceFile
@@ -80,7 +55,7 @@ def background_process_test():
     height = int(camera.get(cv2.CAP_PROP_FRAME_HEIGHT) + 0.5)
     size = (width, height)
     fourcc = cv2.VideoWriter_fourcc(*'MJPG')
-    out = cv2.VideoWriter('your_video.avi', fourcc, 20.0, size)
+    out = cv2.VideoWriter('static/your_video1235.avi', fourcc, 20.0, size)
 
     firstFrame = None
     gun_exist = False
@@ -119,7 +94,7 @@ def background_process_test():
                         cv2.FONT_HERSHEY_SIMPLEX,
                         0.35, (0, 0, 255), 1)
 
-            cv2.imshow("Security Feed", frame)
+            #cv2.imshow("Security Feed", frame)
             out.write(cv2.resize(frame, size ))
             key = cv2.waitKey(1) & 0xFF
 
@@ -137,7 +112,8 @@ def background_process_test():
     camera.release()
 
     cv2.destroyAllWindows()
-    return "True"
+    return redirect(url_for('player', video='your_video1235.avi'))
+    #eturn "your_video123.avi"
 
 if __name__=="__main__":
     app.run(debug=True)
