@@ -116,4 +116,4 @@ def background_process_test():
     #eturn "your_video123.avi"
 
 if __name__=="__main__":
-    app.run(debug=True)
+    app.run('0.0.0.0', port='8000', debug=True)
