@@ -41,22 +41,24 @@ def background_process_test():
     if request.method == 'POST':
         f = request.files['file']
         x=1
-        f.save('uploaded_file.mp4')
+        f.save('static/uploaded_file.mp4')
 
     gun_cascade = cv2.CascadeClassifier('cascade.xml') 
     # camera = cv2.VideoCapture(0)
     #path = main_win.sourceFile
-    path = 'uploaded_file.mp4'
+    path = 'static/uploaded_file.mp4'
     camera = cv2.VideoCapture(path) #grey video
     # camera = cv2.VideoCapture('flir_ELLIOT RAINBOW(1).mp4') # rainbow video
     # camera = cv2.VideoCapture('FLIR THERMAL 4K.mp4') # normal video
-    out = cv2.VideoWriter('uploaded_file_detected.mp4', -1, 20.0, (640, 480))
+    # out = cv2.VideoWriter('uploaded_file_detected.mp4', -1, 20.0, (640, 480))
     width = int(camera.get(cv2.CAP_PROP_FRAME_WIDTH) + 0.5)
     height = int(camera.get(cv2.CAP_PROP_FRAME_HEIGHT) + 0.5)
     size = (width, height)
     fourcc = cv2.VideoWriter_fourcc(*'MJPG')
     out = cv2.VideoWriter('static/your_video1235.avi', fourcc, 20.0, size)
-
+    # print('out')
+    # print(out)
+    # con_video = os.popen("ffmpeg -i {input} -ac 2 -b:v 2000k -c:a aac -c:v libx264 -b:a 160k -vprofile high -bf 0 -strict experimental -f mp4 {output}.mp4".format(input = out, output = 'y_video'))
     firstFrame = None
     gun_exist = False
     try:
@@ -112,8 +114,9 @@ def background_process_test():
     camera.release()
 
     cv2.destroyAllWindows()
-    return redirect(url_for('player', video='your_video1235.avi'))
-    #eturn "your_video123.avi"
+    # return redirect(url_for('player', video='your_video1235.mp4'))
+    return redirect('/static/your_video1235.avi')
+    # return "your_video1235.avi"
 
 if __name__=="__main__":
     app.run('0.0.0.0', port='8000', debug=True)

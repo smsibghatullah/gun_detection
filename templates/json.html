@@ -14,8 +14,9 @@
 </script>
 
 
-
-<div class='container'>
+{%extends "layout.html"%}
+{% block content %}
+<div class='home'>
 <h3>Test</h3>
     <form action="/background_process_test" method = "POST"
          enctype = "multipart/form-data">
@@ -32,3 +33,4 @@
 </div>
 
 </div>
+{%endblock%}
