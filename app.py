@@ -2,12 +2,17 @@ from flask import Flask, render_template, request, redirect, url_for
 import tkinter
 from tkinter import filedialog
 # from werkzeug import secure_filename
+from flask import send_file
+from zipfile import ZipFile
 
 import os
 import numpy as np 
 import cv2 
 import imutils 
 import datetime 
+
+
+
 
 # app=Flask(__name__)
 app = Flask(__name__, static_folder='static')
@@ -37,6 +42,7 @@ def json():
 @app.route('/background_process_test',  methods = ['GET', 'POST'])
 def background_process_test():
     print ("Hello")
+    
     # return redirect(url_for('player', video='your_video123.avi'))
     if request.method == 'POST':
         f = request.files['file']
@@ -56,11 +62,14 @@ def background_process_test():
     size = (width, height)
     fourcc = cv2.VideoWriter_fourcc(*'MJPG')
     out = cv2.VideoWriter('static/your_video1235.avi', fourcc, 20.0, size)
+    outFile = open("static/detection_logs.txt", "w")
+    outFile.close()
     # print('out')
     # print(out)
     # con_video = os.popen("ffmpeg -i {input} -ac 2 -b:v 2000k -c:a aac -c:v libx264 -b:a 160k -vprofile high -bf 0 -strict experimental -f mp4 {output}.mp4".format(input = out, output = 'y_video'))
     firstFrame = None
     gun_exist = False
+    
     try:
         while True:
 
@@ -102,20 +111,39 @@ def background_process_test():
 
             if key == ord('q'):
                 break
-
             if gun_exist:
-                print("guns detected")
+                outFile = open("static/detection_logs.txt", "a")
+                outFile.write('guns detected at: '+ str(datetime.datetime.now()))
+                outFile.write("\n")
+                outFile.close()
+                print('guns detected' + str(datetime.datetime.now()))
             else:
-                print("guns NOT detected")
+                outFile = open("static/detection_logs.txt", "a")
+                outFile.write('guns NOT detected' + str(datetime.datetime.now()))
+                outFile.write("\n")
+                outFile.close()
+                print('guns NOT detected' + str(datetime.datetime.now()))
+            
     except:
         pass
 
+    
+    zipObj = ZipFile('detection_log_vid.zip', 'w')
+    # Add multiple files to the zip
+    zipObj.write('static/detection_logs.txt')
+    zipObj.write('static/your_video1235.avi')
+    # close the Zip File
+    zipObj.close()
+    print('*** Create a zip file from multiple files using with ')
+    # Create a ZipFile Object
     out.release()
     camera.release()
 
     cv2.destroyAllWindows()
     # return redirect(url_for('player', video='your_video1235.mp4'))
-    return redirect('/static/your_video1235.avi')
+    # return redirect('/static/your_video1235.avi')
+    path = "detection_log_vid.zip"
+    return send_file(path, as_attachment=True)
     # return "your_video1235.avi"
 
 if __name__=="__main__":
