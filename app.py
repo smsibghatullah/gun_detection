@@ -34,7 +34,7 @@ app = Flask(__name__, static_folder='static')
 
 
 
-@app.route('/home')
+@app.route('/')
 def json():
     return render_template('home.html')
 
