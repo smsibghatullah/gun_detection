@@ -1,7 +1,122 @@
-{%extends "layout.html"%}
-{% block content %}
-<div class="home">
-     <h1>My homepage</h1>
-     <p>This is a test website</p>
-<div>
-{%endblock%}
+
+<!DOCTYPE html>
+<html lang="en">
+<!-- Mirrored from flowplayer.com/ by HTTrack Website Copier/3.x [XR&CO'2014], Thu, 24 Sep 2020 12:55:17 GMT -->
+<!-- Added by HTTrack --><meta http-equiv="content-type" content="text/html;charset=UTF-8" /><!-- /Added by HTTrack -->
+<head>
+<meta charset="utf-8">
+<title>X-Vinci -  Weapon detection beta testing Application</title>
+<!-- for ads ("global site tag" ??) -->
+<!-- meta -->
+<!-- Schema -->
+<!-- styles -->
+<link rel="stylesheet" href="{{url_for('static',filename='main.css')}}">
+<link rel="stylesheet" href="{{url_for('static',filename='index.css')}}">
+<link rel="stylesheet" href="{{url_for('static',filename='home.css')}}">
+<link rel="stylesheet" href="{{url_for('static',filename='fonts.css')}}">
+<link rel="stylesheet" href="{{url_for('static',filename='font.css')}}">
+<!-- <link href="css/font-awesome.css" type="text/css" rel="stylesheet">
+<link href="css/fonts.css" type="text/css" rel="stylesheet">
+<link href="css/index.css" type="text/css" rel="stylesheet">
+<link href="css/home.css?b" type="text/css" rel="stylesheet"> -->
+</head>
+<header id="header" class="section wide top">
+  <div class="wrap">
+    <a href="index.html">
+        <img class="logo logo-petrol" src="static/xvinci.png"style="width:200px">
+      <img class="logo logo-white hidden" src="static/xvinci.png" style="width:200px">
+    </a>
+  <div class="right" id="burger">
+      <i class="fa fa-bars"></i>
+    </div>
+  </div>
+</header>
+<body
+  class="pagebody dark-hero  is-prod">
+<!-- <header id="header" class="section wide top">
+<div class="wrap">
+    <a href="index.html">
+        <img class="logo logo-petrol" src="static/xvinci.png"style="width:200px">
+      <img class="logo logo-white hidden" src="static/xvinci.png" style="width:200px">
+    </a>
+    <div class="right" id="burger">
+      <i class="fa fa-bars"></i>
+    </div>
+</div>
+</header> -->
+<!-- subnavs -->
+<main>
+<section id="fp-native"  class="section black-bg dark">
+<article class="wrap">
+<section>
+<div class="hgroup" id="">
+<h2>Weapon Detection testing </h2>
+<p>The smallest, fastest, and the most flexible beta testing envoirnment.</p>
+<form class="smaller notify" action="/background_process_test" method = "POST"
+         enctype = "multipart/form-data">
+    <div class="custom-file-upload">
+    <input type="file" name="file" class='btn btn-default'>Let's Proceed</input>
+        <input type="submit">
+    <!--<label for="file">File: </label>--> 
+    <!-- <input type="file" id="file" name="myfiles[]" multiple />    <button class="primary button" onclick="myFunction()" > --><!-- Let's Proceed</button> -->
+</div>
+    <p class="small">
+          After clicking on lets go button allow us some time to upload your video ! <a href="/privacy-policy">privacy policy</a>
+        </p>
+      </form>
+
+<div id="final-video" >
+
+<video width="800" controls>
+  <source src="mov_bbb.mp4" type="video/mp4">
+  <source src="mov_bbb.ogg" type="video/ogg">
+  Your browser does not support HTML video.
+</video>
+
+<div class="feat feat-flexible" id="">
+<p><img alt="" src="static/dev-icons-big.png" /></p>
+<h3>File log</h3>
+<p>You can review detailed detection log file at <a href="developers.html" class="continue">this link</a></p>
+</div>
+</div>
+</section>
+    
+  </article>
+
+</section>
+
+
+</main>
+
+<!-- bottom -->
+<footer id="bottom" class="section dark flex">
+  <article class="wrap layout-21">
+    <section>Copyright &copy; 2020 • X-Vinci. </section>
+    <section>
+       <a href="https://www.technologyhousesolution.com/" class="action facebook">
+          <b class="">Development Partner</b> Technology House Solution </a>
+        
+       
+    </section>
+  </article>
+</footer>
+
+
+<!-- mobile nav -->
+<div id="nav" class="hidden mask">
+  <div class="right">
+    <a class="close">&times;</a>
+  </div>
+
+  <section>
+    <a href="index.html">
+      <img class="logo" src="static/xvinci.png">
+    </a>
+
+
+  </section>
+
+</div>
+</body>
+
+</html>

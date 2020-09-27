@@ -17,26 +17,26 @@ import datetime
 # app=Flask(__name__)
 app = Flask(__name__, static_folder='static')
 
-@app.route('/')
-def home():
-    app.route('/')
-    return render_template("home.html")
+# @app.route('/')
+# def home():
+#     app.route('/')
+#     return render_template("home.html")
 
-@app.route('/about/')
-def about():
-    return render_template("about.html")
+# @app.route('/about/')
+# def about():
+#     return render_template("about.html")
 
-@app.route('/player')
-def player():
-    video = request.args.get("video")
+# @app.route('/player')
+# def player():
+#     video = request.args.get("video")
 
-    return render_template('player.html',video=video)
+#     return render_template('player.html',video=video)
 
 
 
-@app.route('/json')
+@app.route('/home')
 def json():
-    return render_template('json.html')
+    return render_template('home.html')
 
 #background process happening without any refreshing
 @app.route('/background_process_test',  methods = ['GET', 'POST'])
