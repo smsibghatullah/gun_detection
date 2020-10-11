@@ -33,6 +33,21 @@ app = Flask(__name__, static_folder='static')
 #     return render_template('player.html',video=video)
 
 
+@app.route('/record')
+def record():
+    return render_template('record.html')
+
+
+@app.route('/save_to_server',  methods = ['GET', 'POST'])
+def save_to_server():
+    if request.method == 'POST':
+        f = request.files['data']
+        x=1
+        f.save('static/uploaded_file.avi')
+    return 'True'    
+
+
+
 
 @app.route('/')
 def json():
