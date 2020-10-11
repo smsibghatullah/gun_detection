@@ -22,6 +22,7 @@
 </head>
 <header id="header" class="section wide top">
   <div class="wrap">
+
     <a>
         <img class="logo logo-petrol" src="static/xvinci.png"style="width:200px">
       <img class="logo logo-white hidden" src="static/xvinci.png" style="width:200px">
@@ -65,11 +66,18 @@
 
 <div id="final-video" >
 
-<video width="800" controls>
-  <!-- <source src="mov_bbb.mp4" type="video/mp4">
-  <source src="mov_bbb.ogg" type="video/ogg"> -->
+{% if  request.args.get('video') %}
+  <video width="800" controls>
+   <source src="static/your_video1235_new.mp4" type="video/mp4">
+  <source src="static/your_video1235_new.mp4" type="video/ogg">
   Your browser does not support HTML video.
 </video>
+
+
+{% else %}
+
+{% endif %}
+
 
 <div class="feat feat-flexible" id="">
 <p><img alt="" src="static/dev-icons-big.png" /></p>
