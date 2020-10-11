@@ -4,15 +4,15 @@ from tkinter import filedialog
 # from werkzeug import secure_filename
 from flask import send_file
 from zipfile import ZipFile
-
+import subprocess
 import os
 import numpy as np 
 import cv2 
 import imutils 
 import datetime 
+import requests
 
-
-
+import urllib.request
 
 # app=Flask(__name__)
 app = Flask(__name__, static_folder='static')
@@ -36,6 +36,12 @@ app = Flask(__name__, static_folder='static')
 
 @app.route('/')
 def json():
+#import requests
+    #a = subprocess.check_output(['curl','http://182.180.72.24:8080/api/?file_name=static/your_video1235.avi'])
+    #a = subprocess.check_output(['curl','http://127.0.0.1:8080/api/?file_name=static/your_video1235.avi'])
+
+    #print(a)
+    print('---------home ')
     return render_template('home.html')
 
 #background process happening without any refreshing
@@ -132,7 +138,13 @@ def background_process_test():
     # Add multiple files to the zip
     zipObj.write('static/detection_logs.txt')
     zipObj.write('static/your_video1235.avi')
-    # close the Zip File
+    #response = requests.get('http://182.180.72.24:8080/api/?file_name=static/your_video1235.avi')
+    #req = urllib.request.Request('http://127.0.0.1:8080/api/?file_name=static/your_video1235.avi')
+    req = subprocess.check_output(['curl','http://127.0.0.1:8080/api/?file_name=static/your_video1235'])
+
+    print(req)
+    print("--------------------")
+    # close the Zip File 
     zipObj.close()
     print('*** Create a zip file from multiple files using with ')
     # Create a ZipFile Object
@@ -143,8 +155,9 @@ def background_process_test():
     # return redirect(url_for('player', video='your_video1235.mp4'))
     # return redirect('/static/your_video1235.avi')
     path = "detection_log_vid.zip"
-    return send_file(path, as_attachment=True)
-    # return "your_video1235.avi"
+    send_file(path, as_attachment=True)
+    return redirect("http://182.180.72.24:8000/?video=1")
+    #return "your_video1235.avi"
 
 if __name__=="__main__":
     app.run('0.0.0.0', port='8000', debug=True)
