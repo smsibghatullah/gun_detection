@@ -21,6 +21,13 @@
 <link href="css/fonts.css" type="text/css" rel="stylesheet">
 <link href="css/index.css" type="text/css" rel="stylesheet">
 <link href="css/home.css?b" type="text/css" rel="stylesheet"> -->
+<link rel="icon" sizes="192x192" href="../../../images/webrtc-icon-192x192.png">
+    <link href="//fonts.googleapis.com/css?family=Roboto:300,400,500,700" rel="stylesheet" type="text/css">
+    <!-- <link rel="stylesheet" href="../../../css/main.css"> -->
+<!--    <link rel="stylesheet" href="css/main.css">-->
+    <script type="text/javascript" src="{{url_for('static',filename='css/main.css')}}"></script>
+    <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
+
 
 </head>
 <header id="header" class="section wide top">
@@ -84,12 +91,39 @@
 {% endif %}
 
 
+
+<video class="video-player" id="gum" playsinline autoplay muted style="display: block; margin: 0 auto;"></video>
+    <video id="recorded" playsinline loop></video>
+
+    <div>
+        <button id="start">Start camera</button>
+        <button id="record" disabled>Start Recording</button>
+        <button id="play" disabled>Play</button>
+        <button id="download" disabled>Download</button>
+    </div>
+
+    <div>
+        <h4>Media Stream Constraints options</h4>
+        <p>Echo cancellation: <input type="checkbox" id="echoCancellation"></p>
+    </div>
+
+      <div>
+        <span id="errorMsg"></span>
+    </div>
+
+
+
+
 <div class="feat feat-flexible" id="">
 <p><img alt="" src="static/dev-icons-big.png" /></p>
 <h3>File log</h3>
 <p>You can review detailed detection logs in the downloaded zip file.</p>
 </div>
 </div>
+
+
+
+
 </section>
     
   </article>
@@ -128,6 +162,15 @@
   </section>
 
 </div>
+
+
+<!-- include adapter for srcObject shim -->
+<script src="https://webrtc.github.io/adapter/adapter-latest.js"></script>
+<!--<script src="js/main.js" async></script>-->
+<script type="text/javascript" src="{{url_for('static',filename='js/main.js')}}"></script>
+<!-- <script src="../../../js/lib/ga.js"></script> -->
+
+
 </body>
 
 </html>
