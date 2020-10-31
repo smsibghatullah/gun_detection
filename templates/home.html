@@ -28,6 +28,53 @@
     <script type="text/javascript" src="{{url_for('static',filename='css/main.css')}}"></script>
     <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
 
+<style>
+/* Style the tab */
+.tab {
+  overflow: hidden;
+  border: 1px solid #ccc;
+  background-color: #f1f1f1;
+}
+
+/* Style the buttons inside the tab */
+.tab button {
+  background-color: inherit;
+  float: left;
+  border: none;
+  outline: none;
+  cursor: pointer;
+  padding: 14px 16px;
+  transition: 0.3s;
+  font-size: 17px;
+}
+
+
+
+/* Change background color of buttons on hover */
+.tab button:hover {
+  background-color: #ddd;
+}
+
+/* Create an active/current tablink class */
+.tab button.active {
+  background-color: #842014;
+  color:#ffffff;
+}
+
+/* Style the tab content */
+.tabcontent {
+  display: block;
+  padding: 6px 12px;
+  border: 1px solid #ccc;
+  border-top: none;
+}
+
+button:disabled {
+    color: #6e7b7f;
+    border: 2px solid;
+}
+</style>
+
 
 </head>
 <header id="header" class="section wide top">
@@ -61,8 +108,19 @@
 <article class="wrap">
 <section>
 <div class="hgroup" id="">
-<h2>Weapon Detection testing </h2>
+<h2>Concealed Weapon Detection testing </h2>
 <p>The smallest, fastest, and the most flexible beta testing envoirnment.</p>
+
+<div class="tab">
+  <button class="tablinks active" onclick="openCity(event, 'London')">Upload Videos </button>
+  <button class="tablinks" onclick="openCity(event, 'Paris')">Record Videos</button>
+</div>
+
+
+
+
+<div id="London" class="tabcontent">
+
 <form class="smaller notify" action="/background_process_test" method = "POST"
          enctype = "multipart/form-data">
     <div class="custom-file-upload">
@@ -92,10 +150,27 @@
 
 
 
-<video class="video-player" id="gum" playsinline autoplay muted style="display: block; margin: 0 auto;"></video>
-    <video id="recorded" playsinline loop></video>
 
-    <div>
+<div class="feat feat-flexible" id="">
+<p><img alt="" src="static/dev-icons-big.png" /></p>
+<h3>File log</h3>
+<p>You can review detailed detection logs in the downloaded zip file.</p>
+</div>
+</div>
+
+</div>
+
+
+
+
+
+<div id="Paris" class="tabcontent">
+
+<div id="recorded-video" >
+
+
+
+  <div>
         <button id="start">Start camera</button>
         <button id="record" disabled>Start Recording</button>
         <button id="play" disabled>Play</button>
@@ -106,6 +181,11 @@
         <h4>Media Stream Constraints options</h4>
         <p>Echo cancellation: <input type="checkbox" id="echoCancellation"></p>
     </div>
+
+<video class="video-player" id="gum" playsinline autoplay muted style="display: block; margin: 0 auto;"></video>
+    <video id="recorded" playsinline loop></video>
+
+  
 
       <div>
         <span id="errorMsg"></span>
@@ -121,13 +201,35 @@
 </div>
 </div>
 
+</div>
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</div>
 
 </section>
     
-  </article>
-
+ 
+ </article>
 </section>
 
 
@@ -137,12 +239,7 @@
 <footer id="bottom" class="section dark flex">
   <article class="wrap layout-21">
     <section>Copyright &copy; 2020 • X-Vinci. </section>
-    <section>
-       <a href="https://www.technologyhousesolution.com/" class="action facebook">
-          <b class="">Development Partner</b> Technology House Solution </a>
-        
-       
-    </section>
+    
   </article>
 </footer>
 
@@ -170,6 +267,21 @@
 <script type="text/javascript" src="{{url_for('static',filename='js/main.js')}}"></script>
 <!-- <script src="../../../js/lib/ga.js"></script> -->
 
+<script>
+function openCity(evt, cityName) {
+  var i, tabcontent, tablinks;
+  tabcontent = document.getElementsByClassName("tabcontent");
+  for (i = 0; i < tabcontent.length; i++) {
+    tabcontent[i].style.display = "none";
+  }
+  tablinks = document.getElementsByClassName("tablinks");
+  for (i = 0; i < tablinks.length; i++) {
+    tablinks[i].className = tablinks[i].className.replace(" active", "");
+  }
+  document.getElementById(cityName).style.display = "block";
+  evt.currentTarget.className += " active";
+}
+</script>
 
 </body>
 
