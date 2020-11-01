@@ -40,16 +40,17 @@ def record():
 
 @app.route('/save_to_server',  methods = ['GET', 'POST'])
 def save_to_server():
+    print("---- video recorder")
     if request.method == 'POST':
         f = request.files['data']
         x=1
-        f.save('static/your_video1235.avi')
+        f.save('static/your_video12351.avi')
         
 
     gun_cascade = cv2.CascadeClassifier('cascade.xml') 
     # camera = cv2.VideoCapture(0)
     #path = main_win.sourceFile
-    path = 'static/your_video1235.avi'
+    path = 'static/your_video12351.avi'
     camera = cv2.VideoCapture(path) #grey video
     # camera = cv2.VideoCapture('flir_ELLIOT RAINBOW(1).mp4') # rainbow video
     # camera = cv2.VideoCapture('FLIR THERMAL 4K.mp4') # normal video
@@ -58,7 +59,7 @@ def save_to_server():
     height = int(camera.get(cv2.CAP_PROP_FRAME_HEIGHT) + 0.5)
     size = (width, height)
     fourcc = cv2.VideoWriter_fourcc(*'MJPG')
-    out = cv2.VideoWriter('static/your_video12356.avi', fourcc, 20.0, size)
+    out = cv2.VideoWriter('static/cptv.avi', fourcc, 20.0, size)
     outFile = open("static/detection_logs.txt", "w")
     outFile.close()
     # print('out')
@@ -125,18 +126,14 @@ def save_to_server():
         pass
 
     
-    zipObj = ZipFile('detection_log_vid1.zip', 'w')
-    # Add multiple files to the zip
-    zipObj.write('static/detection_logs.txt')
-    zipObj.write('static/your_video12356.avi')
     #response = requests.get('http://182.180.72.24:8080/api/?file_name=static/your_video1235.avi')
     #req = urllib.request.Request('http://127.0.0.1:8080/api/?file_name=static/your_video1235.avi')
-    # req = subprocess.check_output(['curl','http://127.0.0.1:8080/api/?file_name=static/uploaded_file'])
+    print("NODE call")
+    req = subprocess.check_output(['curl','http://127.0.0.1:8080/api/?file_name=static/cptv'])
 
     # print(req)
     # print("--------------------")
     # close the Zip File 
-    zipObj.close()
     print('*** Create a zip file from multiple files using with ')
     # Create a ZipFile Object
     out.release()
@@ -145,15 +142,15 @@ def save_to_server():
     cv2.destroyAllWindows()
     # return redirect(url_for('player', video='your_video1235.mp4'))
     # return redirect('/static/your_video1235.avi')
-    path = "detection_log_vid.zip"
-    send_file(path, as_attachment=True)
-    return redirect("http://182.180.72.24:8000/?video=1")
+    #path = "detection_log_vid.zip"
+    #send_file(path, as_attachment=True)
+    return "True" #redirect("http://182.180.72.24:8000/?video=1")
     #return "your_video1235.avi"
 
 
 
 
-    return 'True'    
+    #return 'True'    
 
 
 
@@ -191,7 +188,7 @@ def background_process_test():
     height = int(camera.get(cv2.CAP_PROP_FRAME_HEIGHT) + 0.5)
     size = (width, height)
     fourcc = cv2.VideoWriter_fourcc(*'MJPG')
-    out = cv2.VideoWriter('static/your_video1235.avi', fourcc, 20.0, size)
+    out = cv2.VideoWriter('static/bgtv.avi', fourcc, 20.0, size)
     outFile = open("static/detection_logs.txt", "w")
     outFile.close()
     # print('out')
@@ -261,10 +258,10 @@ def background_process_test():
     zipObj = ZipFile('detection_log_vid.zip', 'w')
     # Add multiple files to the zip
     zipObj.write('static/detection_logs.txt')
-    zipObj.write('static/your_video1235.avi')
+    zipObj.write('static/your_video1_2.avi')
     #response = requests.get('http://182.180.72.24:8080/api/?file_name=static/your_video1235.avi')
     #req = urllib.request.Request('http://127.0.0.1:8080/api/?file_name=static/your_video1235.avi')
-    req = subprocess.check_output(['curl','http://127.0.0.1:8080/api/?file_name=static/uploaded_file'])
+    req = subprocess.check_output(['curl','http://127.0.0.1:8080/api/?file_name=static/bgtv'])
 
     print(req)
     print("--------------------")
@@ -280,7 +277,7 @@ def background_process_test():
     # return redirect('/static/your_video1235.avi')
     path = "detection_log_vid.zip"
     send_file(path, as_attachment=True)
-    return redirect("http://182.180.72.24:8000/?video=1")
+    return redirect("https://beta-test.xvincitech.com/?video1=1")
     #return "your_video1235.avi"
 
 if __name__=="__main__":

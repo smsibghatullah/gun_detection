@@ -54,6 +54,12 @@ $.ajax({
     processData: false,
     contentType: false
 }).done(function(data) {
+console.log("request Sucessfull")
+ window.location.href = 'https://beta-test.xvincitech.com/?video2=1';
+//document.getElementById("mp4_src").src = "static/your_video1_2_new12.mp4";
+ // document.getElementById("ogg_src").src = "static/your_video1_2_new12.mp4";
+ // document.getElementById("myVideo_cam").load();
+$("#myVideo_cam").show();
        console.log(data);
 });
 
@@ -64,7 +70,7 @@ $.ajax({
   a.href = url;
   a.download = 'test.avi';
   document.body.appendChild(a);
-  a.click();
+  //a.click();
   setTimeout(() => {
     document.body.removeChild(a);
     window.URL.revokeObjectURL(url);

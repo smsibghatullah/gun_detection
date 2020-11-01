@@ -16,7 +16,7 @@
 <link rel="stylesheet" href="{{url_for('static',filename='fonts.css')}}">
 <link rel="stylesheet" href="{{url_for('static',filename='font.css')}}">
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-<script src="http://code.jquery.com/jquery-1.11.0.min.js"></script>
+<script src="https://code.jquery.com/jquery-1.11.0.min.js"></script>
 <!-- <link href="css/font-awesome.css" type="text/css" rel="stylesheet">
 <link href="css/fonts.css" type="text/css" rel="stylesheet">
 <link href="css/index.css" type="text/css" rel="stylesheet">
@@ -27,7 +27,15 @@
 <!--    <link rel="stylesheet" href="css/main.css">-->
     <script type="text/javascript" src="{{url_for('static',filename='css/main.css')}}"></script>
     <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
+<style>
+.btn-default-custom {
+background-color: rgba(0,0,0,0.1);
+color: #fff;
+border: 2px solid #eee;
+padding: 10px;
 
+}
+</style>
 
 </head>
 <header id="header" class="section wide top">
@@ -66,11 +74,11 @@
 <form class="smaller notify" action="/background_process_test" method = "POST"
          enctype = "multipart/form-data">
     <div class="custom-file-upload">
-    <input type="file" name="file" class='btn btn-default'>Let's Proceed</input>
+    <input type="file" name="file" class='btn btn-default'></input>
         <input type="submit">
     </div>
     <p class="small">
-          After clicking on lets go button allow us some time to upload your video ! <a href="/privacy-policy">privacy policy</a>
+          After clicking on lets go button allow us some time to upload your video ! 
         </p>
       </form>
 
@@ -78,28 +86,68 @@
 
 <div id="final-video" >
 
-{% if  request.args.get('video') %}
-  <video width="800" controls>
-   <source src="static/your_video1235_new.mp4" type="video/mp4">
-  <source src="static/your_video1235_new.mp4" type="video/ogg">
-  Your browser does not support HTML video.
+{% if  request.args.get('video1') %}
+<script type="text/javascript">
+    $(document).ready(function(){
+
+setTimeout(function(){
+console.log('applied dely upload file')
+
+      document.getElementById("myVideo").load();
+
+ }, 2000);
+
+      document.getElementById("myVideo").load();
+
+    });
+</script>
+
+
+<div id="video_section">
+<video id="myVideo" width="800" controls>
+  <source id="mp4_src" src="static/bgtv_new12.mp4" type="video/mp4">
+  <source id="ogg_src" src="static/bgtv_new12.mp4" type="video/ogg">
+  Your browser does not support HTML5 video.
 </video>
-
-
+</div>
 {% else %}
 
 {% endif %}
 
 
+{% if  request.args.get('video2') %}
+<script type="text/javascript">
+    $(document).ready(function(){
+console.log('camera loaded video')
+setTimeout(function(){ 
+console.log('applied dely')
+
+      document.getElementById("myVideo_cam").load();
+
+ }, 2000);
+
+      document.getElementById("myVideo_cam").load();
+
+    });
+</script>
+
+<video id="myVideo_cam" width="800"  controls>
+  <source id="mp4_src_cam" src="static/cptv_new12.mp4" type="video/mp4">
+  <source id="ogg_src_cam" src="static/cptv_new12.mp4" type="video/ogg">
+  Your browser does not support HTML5 video.
+</video>
+{% else %}
+
+{% endif %}
 
 <video class="video-player" id="gum" playsinline autoplay muted style="display: block; margin: 0 auto;"></video>
     <video id="recorded" playsinline loop></video>
 
     <div>
-        <button id="start">Start camera</button>
-        <button id="record" disabled>Start Recording</button>
-        <button id="play" disabled>Play</button>
-        <button id="download" disabled>Download</button>
+        <button id="start" class="btn-default-custom">Start Camera</button>
+        <button id="record" class="btn-default-custom"disabled>Start Recording</button>
+        <button id="play" style="display:none" disabled>Play</button>
+        <button id="download" class="btn-default-custom" disabled>Play</button>
     </div>
 
     <div>
@@ -110,9 +158,6 @@
       <div>
         <span id="errorMsg"></span>
     </div>
-
-
-
 
 <div class="feat feat-flexible" id="">
 <p><img alt="" src="static/dev-icons-big.png" /></p>
@@ -138,8 +183,8 @@
   <article class="wrap layout-21">
     <section>Copyright &copy; 2020 • X-Vinci. </section>
     <section>
-       <a href="https://www.technologyhousesolution.com/" class="action facebook">
-          <b class="">Development Partner</b> Technology House Solution </a>
+       <!--a href="https://www.technologyhousesolution.com/" class="action facebook">
+          <b class="">Development Partner</b> Technology House Solution </a-->
         
        
     </section>
